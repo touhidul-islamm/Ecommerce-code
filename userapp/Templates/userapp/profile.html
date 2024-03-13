@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-11 col-md-6 mx-auto">
+            <h4>Your Profile</h4> <a href="{% url 'p_update' %}" class="btn btn-info">Profile Update</a>
+            <img width=200px src="{{user.profile.image.url}}" alt="">
+            <p>Username: {{user.username}}</p>
+            <p>Your first_name: {{user.first_name}}</p>
+            <p>Your Email: {{user.email}}</p>
+            <p>Your phone : {{user.profile.phone}}</p>
+            <p>Date of birth: {{user.profile.date_of_birth}}</p>
+
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

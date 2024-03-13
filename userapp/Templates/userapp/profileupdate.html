@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-11 col-md-6 mx-auto">
+            <h4>Update Profile</h4> 
+            <form action="" method="POST" enctype="multipart/form-data">
+            
+            {% csrf_token %}
+            {{u_form.as_p}}
+            {{p_form.as_p}}
+            <button type="submit">Save data</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
