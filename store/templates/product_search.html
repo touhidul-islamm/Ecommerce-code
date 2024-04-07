@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+{% for x in product_search %}
+<div class="container">
+    <div class="row">
+        <div class="product">
+            <figure class="product-media">
+                <span class="product-label label-top">Top</span>
+                <span class="product-label label-sale">Sale</span>
+                <a href="{% url 'product_details' x.pk %}">
+                    <img src="{{x.image.url}}" alt="Product image" class="product-image">
+                </a>
+        
+                <div class="product-countdown" data-until="+9h" data-format="HMS" data-relative="true" data-labels-short="true"></div><!-- End .product-countdown -->
+        
+                <div class="product-action-vertical">
+                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                    <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a>
+                    <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
+                </div><!-- End .product-action-vertical -->
+        
+                <div class="product-action">
+                    <a href="#" class="btn-product btn-cart" title="Add to cart"><span>{{x.name}}</span></a>
+                </div><!-- End .product-action -->
+            </figure><!-- End .product-media -->
+        
+            <div class="product-body">
+                <div class="product-cat">
+                    <a href="#">{{ x.catagory.name }}</a>
+                </div><!-- End .product-cat -->
+                <h3 class="product-title"><a href="product.html">{{x.description|safe}}</a></h3><!-- End .product-title -->
+                <div class="product-price">
+                    {% if x.discount_price %}
+                    <span class="new-price">{{x.discount_price}}</span>
+                    <span class="old-price">Was {{x.price}}</span>
+                    {% else %}
+                    <span class="new-price">Was {{x.price}}</span>
+                    {% endif %}
+                </div><!-- End .product-price -->
+                <div class="ratings-container">
+                    <div class="ratings">
+                        <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
+                    </div><!-- End .ratings -->
+                    <span class="ratings-text">( 4 Reviews )</span>
+                </div><!-- End .rating-container -->
+        
+                <div class="product-nav product-nav-dots">
+                    <a href="#" class="active" style="background: #69b4ff;"><span class="sr-only">Color name</span></a>
+                    <a href="#" style="background: #ff887f;"><span class="sr-only">Color name</span></a>
+                    <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
+                </div><!-- End .product-nav -->
+            </div><!-- End .product-body -->
+        </div><!-- End .product -->
+
+    </div>
+</div>
+{% endfor %}
+{% endblock body %}

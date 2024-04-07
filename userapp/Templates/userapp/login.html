@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
-<div class="container">
+<div class="container d-flex align-item-center justify-content-center min-vh-100">
     <div class="row">
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Login</button>
-        </form>
+
+{% if form.errors %}
+    <p class="text-warning"> Your username and/or password didn't match </p>
+{% endif%}
+<form role="form" class="form-horizontal" method="POST" action="">
+    <div class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="login" />
+        <input type="hidden" name="next" value="{{ next }}" />
+    </div>
+</form>
+
 
     </div>
 </div>

@@ -3,13 +3,18 @@
 {% block body %}
 <div class="container">
     <div class="row">
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit">Submit Data</button>
+        <form role="form" class="form-horizontal" method="POST" action="">
+            <div class="form-group">
+                <h2>Sign up form</h2>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-primary" value="Submit data" />
+                <input type="hidden" name="next" value="{{ next }}" />
+            </div>
         </form>
 
     </div>
 </div>
 
 {% endblock body %}
+
