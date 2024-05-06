@@ -7,6 +7,9 @@
 <!-- Mirrored from portotheme.com/html/molla/index-13.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 05 Dec 2023 14:16:43 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
+    {% load static %}
+    {% load cart_count %}
+   
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -160,62 +163,57 @@
                             <div class="dropdown cart-dropdown">
                                 <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                                     <i class="icon-shopping-cart"></i>
-                                    <span class="cart-count">2</span>
+                                    <span class="cart-count">{{request.user|cart_count}}</span>
                                     <span class="cart-txt">Cart</span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right">
+                                    {% for x in order.cart_product.all %}
                                     <div class="dropdown-cart-products">
+                                        
                                         <div class="product">
                                             <div class="product-cart-details">
                                                 <h4 class="product-title">
-                                                    <a href="product.html">Beige knitted elastic runner shoes</a>
+                                                    <a href="product.html">{{x.product.name}}</a>
                                                 </h4>
 
+                                                {% if x.product.discount_price %}
                                                 <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span>
-                                                    x $84.00
+                                                    
+                                                    <span class="cart-product-qty">{{x.quantity}}</span>
+                                                    x {{x.product.discount_price}}
                                                 </span>
+                                                {% else %}
+                                                <span class="cart-product-info">
+                                                    
+                                                    <span class="cart-product-qty">{{x.quantity}}</span>
+                                                    x {{x.product.price}}
+                                                </span>
+                                                {% endif %}
                                             </div><!-- End .product-cart-details -->
 
                                             <figure class="product-image-container">
                                                 <a href="product.html" class="product-image">
-                                                    <img src="{% static 'assets/images/products/cart/product-1.jpg' %}" alt="product">
+                                                    <img src="{{x.product.image.url}}" alt="product">
                                                 </a>
                                             </figure>
-                                            <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                            <a href="{% url 'remove_cart' x.product.pk %}" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
                                         </div><!-- End .product -->
-
-                                        <div class="product">
-                                            <div class="product-cart-details">
-                                                <h4 class="product-title">
-                                                    <a href="product.html">Blue utility pinafore denim dress</a>
-                                                </h4>
-
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span>
-                                                    x $76.00
-                                                </span>
-                                            </div><!-- End .product-cart-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="{% static 'assets/images/products/cart/product-2.jpg' %}" alt="product">
-                                                </a>
-                                            </figure>
-                                            <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        </div><!-- End .product -->
+          
                                     </div><!-- End .cart-product -->
+                                    {% endfor %}
 
+                                    
                                     <div class="dropdown-cart-total">
                                         <span>Total</span>
 
-                                        <span class="cart-total-price">$160.00</span>
+                                        <span class="cart-total-price">{{order.get_total}}</span>
                                     </div><!-- End .dropdown-cart-total -->
+                                    
 
                                     <div class="dropdown-cart-action">
-                                        <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                        <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
+                                        <a href="{% url 'cart_summary' %}" class="btn btn-primary">View Cart</a>
+                                        <a href="#" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
                                     </div><!-- End .dropdown-cart-total -->
                                 </div><!-- End .dropdown-menu -->
                             </div><!-- End .cart-dropdown -->
@@ -1459,6 +1457,21 @@
     </div>
 </div>
 <!-- Plugins JS File -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    {% if messages %}
+    {% for x in messages %}
+    Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "{{x}}",
+    showConfirmButton: false,
+    timer: 1500
+    });
+    {% endfor %}
+    {% endif %}
+</script>
+
 <script src="{% static 'assets/js/jquery.min.js' %}"></script>
 <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'assets/js/jquery.hoverIntent.min.js' %}"></script>

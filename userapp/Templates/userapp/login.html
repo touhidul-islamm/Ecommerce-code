@@ -6,7 +6,7 @@
 
 {% if form.errors %}
     <p class="text-warning"> Your username and/or password didn't match </p>
-{% endif%}
+{% endif %}
 <form role="form" class="form-horizontal" method="POST" action="">
     <div class="form-group">
         {% csrf_token %}
