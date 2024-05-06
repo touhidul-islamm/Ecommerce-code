@@ -19,6 +19,6 @@ class CheckoutView(View):
         }
         return render(request, 'payment/checkout.html', context)
 
-    
+    # ffff
 
         
