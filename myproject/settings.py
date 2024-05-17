@@ -117,6 +117,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+STORE_ID= 'proth6640b62336828'
+STORE_PASS= 'proth6640b62336828@ssl'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -133,3 +135,5 @@ LOGIN_REDIRECT_URL='index'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

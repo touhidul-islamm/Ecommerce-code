@@ -114,7 +114,8 @@ class Order(models.Model):
         ('SSL Commerce', 'SSL Commerce'),
     )
     payment_option=models.CharField(max_length=100, choices=PAYMENT_METHOD, blank=True, null=True)
-    order_id=models.CharField(max_length=100, blank=True, null=True)
+    order_id=models.CharField(max_length=500, blank=True, null=True)
+    payment_id=models.CharField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.user.username

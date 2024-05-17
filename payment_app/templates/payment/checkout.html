@@ -26,7 +26,7 @@
                         <label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
                     </form>
                 </div><!-- End .checkout-discount -->
-                <form action="#">
+                <form action="{% url 'checkout' %}" method="POST">
                     <div class="row">
                         <div class="col-lg-9">
                             <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->

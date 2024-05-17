@@ -39,6 +39,13 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/skins/skin-demo-13.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/demos/demo-13.css' %}">
+
+<!-- Whatsapp cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+   {% block fb %}
+
+   {% endblock fb %}
 </head>
 
 <body>
@@ -1426,7 +1433,7 @@
     </div><!-- End .modal-dialog -->
 </div><!-- End .modal -->
 
-<div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
+<!--<div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
     <div class="row justify-content-center">
         <div class="col-10">
             <div class="row no-gutters bg-white newsletter-popup-content">
@@ -1440,13 +1447,13 @@
                                 <input type="email" class="form-control form-control-white" placeholder="Your Email Address" aria-label="Email Adress" required>
                                 <div class="input-group-append">
                                     <button class="btn" type="submit"><span>go</span></button>
-                                </div><!-- .End .input-group-append -->
-                            </div><!-- .End .input-group -->
+                                </div>
+                            </div>
                         </form>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="register-policy-2" required>
                             <label class="custom-control-label" for="register-policy-2">Do not show this popup again</label>
-                        </div><!-- End .custom-checkbox -->
+                        </div>
                     </div>
                 </div>
                 <div class="col-xl-2-5col col-lg-5 ">
@@ -1455,7 +1462,34 @@
             </div>
         </div>
     </div>
-</div>
+</div> 
+-->
+<!--whatsapp code here-->
+<div class="container">
+    <a href="https://wa.me/+8801731354565" target="_blank" class="chat-icon">
+      <i class="fab fa-whatsapp"></i>Calling
+    </a>
+  </div>
+
+  <style>
+    .chat-icon {
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  z-index: 9999;
+  font-size: 20px; /* Adjust size as needed */
+  color: green; /* Adjust color as needed */
+  background-color: aqua;
+  height: 40px;
+  width: 100px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+  </style>
+
+
+
 <!-- Plugins JS File -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
@@ -1491,4 +1525,8 @@
 
 <!-- Mirrored from portotheme.com/html/molla/index-13.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 05 Dec 2023 14:23:40 GMT -->
 </html>
+
+{% block script %}
+
+{% endblock script %}
 

@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
+ <!--social media share cdn-->
+ {% block fb %}
+ <meta property="og:url"           content="http://127.0.0.1:8000/details-product/{{product_details.pk}}"/>
+ <meta property="og:type"          content="website"/>
+ <meta property="og:title"         content="{{product_details.name}}" />
+ <meta property="og:description"   content="{{product_details.description|striptags}}" />
+ <meta property="og:image"         content="{{product_details.image.url}}" />
+ 
+ <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
+ <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
+ 
+  <!--social share-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+ {% endblock fb %}
+
 {% block body %}
 <main class="main">
     <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
@@ -137,12 +154,8 @@
                                     <a href="#">Yellow</a>
                                 </div><!-- End .product-cat -->
 
-                                <div class="social-icons social-icons-sm">
-                                    <span class="social-label">Share:</span>
-                                    <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                                    <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                                    <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                                    <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                <div class="py-4 mt-3">
+                                    <div id="shareButtonLabel"></div>
                                 </div>
                             </div><!-- End .product-details-footer -->
                         </div><!-- End .product-details -->
@@ -358,3 +371,23 @@
     </div><!-- End .page-content -->
 </main><!-- End .main -->
 {% endblock body %}
+
+{% block script %}
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
+    <script>
+      $("#shareButtonLabel").jsSocials({
+          url: "http://127.0.0.1:8000/details-product/{{product_details.pk}}",
+          showCount: false,
+          showLabel: true,
+          shares: [
+              "twitter",
+              "email",
+              { share: "facebook", label: "Facebook" },
+              { share: "linkedin", label: "LinkedIn" },
+              { share: "pinterest", label: "Pinterest" },
+              "whatsapp"
+          ]
+      });
+    
+    </script>
+{% endblock script %}
