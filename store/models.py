@@ -80,6 +80,26 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    
+    def get_review_list(self):
+        review=ProductReview.objects.filter(product=self, approve_status=True)
+        return review
+
+    def get_avg_rating(self):
+        review=review=ProductReview.objects.filter(product=self, approve_status=True)
+        count=len(review)
+        sum=0
+        for i in review:
+            sum +=i.rating
+
+        if count != 0:
+            return(sum*20/count)
+
+    def get_rating_count(self):
+        review=ProductReview.objects.filter(product=self, approve_status=True)
+        count=len(review)
+        return count
     
 
 class Cart_product(models.Model):
@@ -125,6 +145,27 @@ class Order(models.Model):
         for i in self.cart_product.all():
             add+=i.total()
         return add
+    
+
+class ProductReview(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    product=models.ForeignKey(Product, on_delete=models.CASCADE)
+    created_on=models.DateTimeField(auto_now_add=True)
+    RATING=(
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5)
+    )
+    rating=models.IntegerField(choices=RATING, default=5)
+    review=models.TextField()
+    image=models.ImageField(upload_to='ReviewImage/', blank=True, null=True)
+    approve_status=models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
     
    
     

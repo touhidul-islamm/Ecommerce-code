@@ -83,9 +83,9 @@
 
                             <div class="ratings-container">
                                 <div class="ratings">
-                                    <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
+                                    <div class="ratings-val" style="width:{{product_details.get_avg_rating}}%;"></div><!-- End .ratings-val -->
                                 </div><!-- End .ratings -->
-                                <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
+                                <a class="ratings-text" href="#product-review-link" id="review-link">({{ product_details.get_rating_count }} Review)</a>
                             </div><!-- End .rating-container -->
 
                             {% if product_details.discount_price %}
@@ -321,7 +321,7 @@
                         </div><!-- End .product-action-vertical -->
 
                         <div class="product-action">
-                            <a href="{% url 'add_to_cart' product_details.pk %}" class="btn-product btn-cart"><span>add to cart</span></a>
+                            <a href="{% url 'add_to_cart' r.pk %}" class="btn-product btn-cart"><span>add to cart</span></a>
                         </div><!-- End .product-action -->
                     </figure><!-- End .product-media -->
 
@@ -370,6 +370,76 @@
         </div><!-- End .container -->
     </div><!-- End .page-content -->
 </main><!-- End .main -->
+
+<!-- Customer Review -->
+
+<div class="container" id="rate_id">
+    <h4>Product Review( {{product_details.get_rating_count}} )</h4>
+    {% for p in product_details.get_review_list %}
+    <div class="card shadow p-3 my-3">
+        <div class="row">
+            <div class="col-6 d-flex">
+                <img src="{{ p.user.profile.image.url }}" style="height: 50px;"/>
+                <p class="p-2 my-auto">by {{ p.user.first_name }}</p>
+                <p class="p-2 my-auto" style='color:#39aa5b;font-weight: 500;'><i class="fa-solid fa-shield-heart"></i></i> Verified Purchase</p>
+                
+                
+            </div>
+            <div class="col-6">
+                <div class="reviews float-right text-warning">
+                    {% if p.rating == 1 %}
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    {% elif p.rating == 2 %}
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    {% elif p.rating == 3 %}
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    {% elif p.rating == 4 %}
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    {% elif p.rating == 5 %}
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    {% endif %}
+
+                    <p>{{ p.created_on }}</p>
+                </div>                      
+            </div>
+        </div>
+        <div class="my-3">
+            <p>{{ p.review }}</p>
+        </div>
+        
+        
+        {% if p.image %}
+        <div class="my-3">
+            <img src="{{ p.image.url }}" alt="" style="width: 300px;"> 
+        </div> 
+        {% endif %}
+            
+        
+    </div>
+    {% endfor %}
+        
+</div>
+
 {% endblock body %}
 
 {% block script %}

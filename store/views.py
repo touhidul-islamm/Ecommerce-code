@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
+from .forms import *
 
 # Create your views here.
 def index(request):
@@ -136,4 +137,47 @@ def cart_summary(request):
         return render(request, 'cart_summary.html', context)
     except ObjectDoesNotExist:
         messages.info(request, 'Your cart is empty') 
+        return redirect('/')
+
+
+def order_summary(request):
+    order=Order.objects.filter(user=request.user, ordered=True)
+    context={
+        'order':order
+    }
+    return render(request, 'order_summary.html', context)
+
+def order_details(request,pk):
+    order=Order.objects.get(pk=pk)
+    context={
+        'order':order
+    }
+    return render(request, 'order_details.html', context)
+
+
+@login_required(login_url='login')
+def review(request, pk):
+    try:
+        cartitems=Cart_product.objects.get(pk=pk, user=request.user, ordered=True)
+        form=ProductReviewForm(request.POST, request.FILES)
+        if request.method=='POST':
+            form=ProductReviewForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.instance.user=request.user
+                form.instance.product=cartitems.product
+                form.rating=request.POST.get('rating')
+                form.image=request.POST.get('image')
+                form.save()
+                messages.success(request, 'successfully save')
+                return redirect('/')
+            else:
+                messages.error(request, 'please correct the error bellow:')
+        
+        context={
+            'cartitems':cartitems,
+            'form':form
+        }
+        return render(request, 'review.html', context)
+    
+    except ObjectDoesNotExist:
         return redirect('/')
